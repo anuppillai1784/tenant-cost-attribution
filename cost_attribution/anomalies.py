@@ -2,8 +2,8 @@ import statistics
 from dataclasses import dataclass
 from typing import Mapping, Sequence
 
-WINDOW_DAYS = 14
-MIN_HISTORY_DAYS = 7
+WINDOW_DAYS = 28
+MIN_HISTORY_DAYS = 14
 Z_THRESHOLD = 3.0
 
 
