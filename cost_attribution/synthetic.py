@@ -11,8 +11,11 @@ TENANT_DEPARTMENTS = {
     "tenant-birch": ("support", "research"),
     "tenant-cedar": ("legal", "sales"),
 }
-FEATURES = ("chat-summary", "doc-search", "ticket-triage")
-MODELS = ("model-small", "model-large")
+FEATURE_MODELS = {
+    "chat-summary": "model-small",
+    "doc-search": "model-large",
+    "ticket-triage": "model-small",
+}
 BASE_REQUESTS_PER_DAY = 6
 EXTRA_REQUESTS_MAX = 3
 SPIKE_KEY = ("tenant-birch", "doc-search")
@@ -38,7 +41,7 @@ def generate_events(seed: int = SEED) -> list[Event]:
     events: list[Event] = []
     for day in demo_days():
         for tenant, departments in TENANT_DEPARTMENTS.items():
-            for feature in FEATURES:
+            for feature, model in FEATURE_MODELS.items():
                 for index in range(request_count(rng, tenant, feature, day)):
                     events.append(
                         Event(
@@ -46,7 +49,7 @@ def generate_events(seed: int = SEED) -> list[Event]:
                             tenant=tenant,
                             department=rng.choice(departments),
                             feature=feature,
-                            model=rng.choice(MODELS),
+                            model=model,
                             day=day,
                             input_tokens=rng.randint(*INPUT_TOKENS_RANGE),
                             output_tokens=rng.randint(*OUTPUT_TOKENS_RANGE),
