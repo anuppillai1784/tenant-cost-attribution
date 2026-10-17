@@ -1,0 +1,10 @@
+[
+  {
+    "baseline_mean_micros": 42743,
+    "cost_micros": 393991,
+    "day": "2026-09-18",
+    "feature": "doc-search",
+    "tenant": "tenant-birch",
+    "z_score": 56.52
+  }
+]

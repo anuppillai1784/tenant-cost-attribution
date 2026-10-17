@@ -1,0 +1,43 @@
+{
+  "as_of_day": "2026-09-20",
+  "budgets": {
+    "tenant-alder": {
+      "limit_micros": 2000000,
+      "over_budget": false,
+      "projected_micros": 1511044,
+      "spend_to_date_micros": 1007363
+    },
+    "tenant-birch": {
+      "limit_micros": 1200000,
+      "over_budget": true,
+      "projected_micros": 2033823,
+      "spend_to_date_micros": 1355882
+    },
+    "tenant-cedar": {
+      "limit_micros": 2000000,
+      "over_budget": false,
+      "projected_micros": 1448440,
+      "spend_to_date_micros": 965627
+    }
+  },
+  "reconciled_exact": true,
+  "total_micros": 3328872,
+  "totals": {
+    "department": {
+      "legal": 541681,
+      "research": 637764,
+      "sales": 880245,
+      "support": 1269182
+    },
+    "feature": {
+      "chat-summary": 200859,
+      "doc-search": 2913339,
+      "ticket-triage": 214674
+    },
+    "tenant": {
+      "tenant-alder": 1007363,
+      "tenant-birch": 1355882,
+      "tenant-cedar": 965627
+    }
+  }
+}

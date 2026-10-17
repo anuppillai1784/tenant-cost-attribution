@@ -1,0 +1,21 @@
+Spend through 2026-09-20: $3.328872
+By tenant:
+  tenant-alder   $1.007363
+  tenant-birch   $1.355882
+  tenant-cedar   $0.965627
+By department:
+  legal          $0.541681
+  research       $0.637764
+  sales          $0.880245
+  support        $1.269182
+By feature:
+  chat-summary   $0.200859
+  doc-search     $2.913339
+  ticket-triage  $0.214674
+Budgets projected to month end:
+  tenant-alder   projected $1.511044 limit $2.000000 within budget
+  tenant-birch   projected $2.033823 limit $1.200000 OVER BUDGET
+  tenant-cedar   projected $1.448440 limit $2.000000 within budget
+Anomalies: 1
+  2026-09-18 tenant-birch doc-search cost $0.393991 baseline $0.042743 z=56.52
+Reconcile: EXACT, attributed spend equals total 3328872 micro-dollars for tenant, department and feature
