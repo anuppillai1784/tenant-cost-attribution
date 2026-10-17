@@ -6,11 +6,11 @@ This tool stores inference spend for each request in a SQLite ledger. It attribu
 
 ## Why it matters
 
-Shared model usage makes cost hard to assign to the team that caused it. Exact, repeatable attribution lets finance and engineering trust the numbers and act on spend spikes early.
+Shared model usage makes spend hard to assign to the team that caused it. Exact, repeatable attribution lets finance and engineering trust the numbers and act on spend spikes early.
 
 ## Quickstart
 
-Requires Python 3.11 or later. Run these commands from the repository root. No install step is needed.
+The code needs Python 3.11 or later and no other packages. Run these commands from the repository root.
 
 ```
 python3 -m unittest discover
@@ -19,7 +19,7 @@ python3 -m cost_attribution demo --db ledger.sqlite --out examples > examples/de
 python3 -m cost_attribution reconcile --db ledger.sqlite
 ```
 
-The demo writes `examples/report.json`, `examples/alerts.json`, and `examples/demo_output.txt`. Running the demo again gives the same bytes.
+The demo writes `examples/report.json`, `examples/alerts.json`, and `examples/demo_output.txt`. A second run from a fresh ledger writes identical files.
 
 ## Repo tree
 
@@ -38,7 +38,7 @@ tenant-cost-attribution/
 │   ├── cli.py              # The demo and reconcile commands
 │   ├── demo.py             # Runs the demo and writes output files
 │   ├── ledger.py           # SQLite ledger with idempotent ingest
-│   ├── prices.py           # Versioned price table and cost formula
+│   ├── prices.py           # Versioned price table and spend formula
 │   ├── render.py           # Text summary lines
 │   ├── report.py           # Report data and money formatting
 │   └── synthetic.py        # Seeded synthetic events with one spike
@@ -65,8 +65,8 @@ The quickstart also creates `ledger.sqlite` and `__pycache__/` directories. Git 
 ## How it works
 
 - Ingest: each event has a `request_id`. The ledger keeps the first row for each `request_id` and ignores later copies.
-- Pricing: cost in micro-dollars is `(input tokens x input rate + output tokens x output rate) // 1000000`. Rates are micro-dollars per million tokens. All values are integers. Fractions of a micro-dollar are dropped per event.
-- Price versions: each event uses the price version that is in effect on its day. A new version changes the cost of events from its start day on. Older events keep their old prices.
+- Pricing: the spend for one event, in micro-dollars, is `(input tokens x input rate + output tokens x output rate) // 1000000`. Rates are micro-dollars per million tokens. All values are integers. Fractions of a micro-dollar are dropped per event.
+- Price versions: each event uses the price version that is in effect on its day. A new version changes the spend for events from its start day on. Older events keep their old prices.
 - Attribution: totals by tenant, by department, and by feature each sum to the grand total. The reconcile command checks that all three sums equal the grand total.
 - Budgets: the projection is month-to-date spend times days in the month, divided by the day of the month. The result is rounded down.
 - Anomalies: the detector checks daily spend for each tenant and feature pair. It compares each day with the previous 28 days. It needs at least 14 days of history. It flags a day when its z-score is 3.0 or higher. It skips a window with zero spread. Days with no events count as zero.
@@ -107,6 +107,6 @@ Reconcile: EXACT, attributed spend equals total 3328872 micro-dollars for tenant
 - The budget limits in the demo are invented inputs.
 - The z-score test does not model weekly or seasonal patterns.
 - The reconcile command checks internal totals only. It does not compare totals with an invoice.
-- The ledger keeps the first row for each `request_id`. A later row with different values is ignored without a warning.
+- The ledger keeps the first row for each `request_id`. The ledger drops a later row with different values and gives no warning.
 - The ledger runs on one SQLite file. It has no multi-writer controls.
 
