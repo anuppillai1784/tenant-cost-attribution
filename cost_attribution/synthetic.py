@@ -5,7 +5,7 @@ from cost_attribution.ledger import Event
 
 SEED = 7
 DEMO_START = date(2026, 9, 1)
-DEMO_DAYS = 30
+DEMO_DAYS = 20
 TENANT_DEPARTMENTS = {
     "tenant-alder": ("support", "sales"),
     "tenant-birch": ("support", "research"),
@@ -19,7 +19,7 @@ FEATURE_MODELS = {
 BASE_REQUESTS_PER_DAY = 6
 EXTRA_REQUESTS_MAX = 3
 SPIKE_KEY = ("tenant-birch", "doc-search")
-SPIKE_DAY = "2026-09-21"
+SPIKE_DAY = "2026-09-18"
 SPIKE_MULTIPLIER = 8
 INPUT_TOKENS_RANGE = (200, 1_800)
 OUTPUT_TOKENS_RANGE = (50, 600)
