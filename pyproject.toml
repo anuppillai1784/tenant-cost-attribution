@@ -1,0 +1,13 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tenant-cost-attribution"
+version = "0.1.0"
+description = "Per-tenant, per-department, and per-feature inference spend ledger with anomaly alerts."
+requires-python = ">=3.11"
+dependencies = []
+
+[tool.setuptools]
+packages = ["cost_attribution"]
