@@ -51,3 +51,12 @@ def reconcile(priced: Sequence[PricedEvent]) -> Reconciliation:
         dimension: sum(totals_by(priced, dimension).values()) for dimension in DIMENSIONS
     }
     return Reconciliation(total_micros=total, attributed=attributed)
+
+
+def daily_costs(priced: Sequence[PricedEvent]) -> dict[tuple[str, str], dict[str, int]]:
+    series: dict[tuple[str, str], dict[str, int]] = {}
+    for item in priced:
+        key = (item.event.tenant, item.event.feature)
+        days = series.setdefault(key, {})
+        days[item.event.day] = days.get(item.event.day, 0) + item.cost_micros
+    return series

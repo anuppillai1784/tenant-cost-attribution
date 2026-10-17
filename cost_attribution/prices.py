@@ -39,3 +39,21 @@ def price_micros(
         + output_tokens * rate.output_micros_per_mtok
     )
     return total // TOKENS_PER_MILLION
+
+
+DEFAULT_PRICE_VERSIONS = [
+    PriceVersion(
+        effective_from="2026-01-01",
+        rates={
+            "model-small": ModelRate(input_micros_per_mtok=250_000, output_micros_per_mtok=1_000_000),
+            "model-large": ModelRate(input_micros_per_mtok=3_000_000, output_micros_per_mtok=12_000_000),
+        },
+    ),
+    PriceVersion(
+        effective_from="2026-08-01",
+        rates={
+            "model-small": ModelRate(input_micros_per_mtok=200_000, output_micros_per_mtok=800_000),
+            "model-large": ModelRate(input_micros_per_mtok=2_500_000, output_micros_per_mtok=10_000_000),
+        },
+    ),
+]
